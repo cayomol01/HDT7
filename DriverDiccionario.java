@@ -15,6 +15,13 @@ class DriverDiccionario{
 
         Scanner leedor1 = null;
         Scanner leedor2 = null;
+        Scanner scan = new Scanner(System.in);
+
+        HashMap<String, String[]> dic = new HashMap<String, String[]>();
+
+        String s = "";
+
+        int opcion = 0;
 
         ArbolBinarioBusqueda<String, Diccionario> arbolf = new ArbolBinarioBusqueda<String, Diccionario>(new CompDiccionarios<String,Diccionario>(), 
                                                                                                          new CompKeyDiccionarios<String,Diccionario>()
@@ -32,8 +39,8 @@ class DriverDiccionario{
         boolean fileOpened;
 
         try{
-            leedor1 = new Scanner(archivo_diccionario);
             leedor2 = new Scanner(archivo_oracion);
+            leedor1 = new Scanner(archivo_diccionario);
             fileOpened = true;
         }catch(FileNotFoundException e){
             System.out.println("--- File Not Found! ---");
@@ -48,6 +55,7 @@ class DriverDiccionario{
                 arboli.Insert(palabras[0], new Diccionario(palabras[0],palabras[1],palabras[2]));
                 arbole.Insert(palabras[1], new Diccionario(palabras[0],palabras[1],palabras[2]));
                 arbolf.Insert(palabras[2], new Diccionario(palabras[0],palabras[1],palabras[2]));
+                dic.put(palabras[0], palabras);
 
             }
 
@@ -64,5 +72,41 @@ class DriverDiccionario{
 
 
         }
+
+
+        String[] palabras2 = leedor2.nextLine().split(" ");
+
+        //Quita el punto de la oración
+        palabras2[palabras2.length -1] = palabras2[palabras2.length-1].substring(0,palabras2[palabras2.length-1].length()-1);
+
+        
+        System.out.println("\nPor favor eliga a que idioma desea traducir su oración");
+        System.out.println("1. Español");
+        System.out.println("2. Francés");
+        opcion = scan.nextInt();
+        if(opcion==1){
+            for(int i = 0; i<palabras2.length; i++){
+                if(dic.containsKey(palabras2[i])){
+                    s+= dic.get(palabras2[i])[1] + " ";
+                }
+                else{
+                    s+= "*" + palabras2[i] + "* ";
+                }
+            }
+        }
+        else if(opcion==2){
+            for(int i = 0; i<palabras2.length; i++){
+                if(dic.containsKey(palabras2[i])){
+                    s+= dic.get(palabras2[i])[2] + " ";
+                }
+                else{
+                    s+= "*" + palabras2[i] + "* ";
+                }
+            }
+        }
+        else{
+            System.out.println("\nNo se pudo reconocer la opcion ingresada");
+        }
+        
     }
 }
