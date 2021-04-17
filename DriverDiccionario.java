@@ -45,9 +45,9 @@ class DriverDiccionario{
         if(fileOpened){
             while(leedor1.hasNextLine()){
                 palabras = leedor1.nextLine().split(",");
-                arboli.Insert(palabras[0], new Diccionario(palabras[0],palabras[0],palabras[1],palabras[2]));
-                arbole.Insert(palabras[1], new Diccionario(palabras[1],palabras[0],palabras[1],palabras[2]));
-                arbolf.Insert(palabras[2], new Diccionario(palabras[2],palabras[0],palabras[1],palabras[2]));
+                arboli.Insert(palabras[0], new Diccionario(palabras[0],palabras[1],palabras[2]));
+                arbole.Insert(palabras[1], new Diccionario(palabras[0],palabras[1],palabras[2]));
+                arbolf.Insert(palabras[2], new Diccionario(palabras[0],palabras[1],palabras[2]));
 
             }
 
